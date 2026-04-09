@@ -1,12 +1,10 @@
 "use client";
 
+import { useWallet } from "@solana/wallet-adapter-react";
 import { useMutation } from "@tanstack/react-query";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useState,useRef,useEffect } from "react";
-import {
-  useAppKitAccount,
-} from "@reown/appkit/react";
 import toast from "react-hot-toast";
 
 const agents = [
@@ -132,17 +130,13 @@ const agents = [
   },
 ];
 
-const mintSteps = [
-  { label: "Preparing Metadata", status: "done" },
-  { label: "Sending Transaction", status: "active" },
-  { label: "Confirmed on Chain", status: "pending" },
-];
-
 export default function MintingPage() {
   const [confirmed, setConfirmed] = useState(false);
   const searchParams = useSearchParams();
   const agentName = searchParams.get("agent");
-  const { address, isConnected } = useAppKitAccount();
+  const { publicKey , connected } = useWallet();
+  const address = publicKey?.toBase58();
+  const isConnected = connected;
   const [progress,setProgress] = useState(0);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 

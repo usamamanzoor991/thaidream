@@ -1,51 +1,15 @@
 "use client";
 
 import { useAgentNFTs } from "@/app/hooks/useNFTS";
-import { useEffect, useState } from "react";
-import {
-  useAppKitAccount,
-} from "@reown/appkit/react";
-
-// -+
-//   {
-//     id: 1,
-//     name: "The Lotus Weaver",
-//     rarityScore: "84.2",
-//     style: "EGL",
-//     live: true,
-//     image: "/Mythical-Creature-1.png",
-//   },
-//   {
-//     id: 2,
-//     name: "Emerald Guardian",
-//     rarityScore: "81.5",
-//     style: "MYTHICAL",
-//     live: false,
-//     image: "/Mythical-Creature-2.png",
-//   },
-//   {
-//     id: 3,
-//     name: "Twilight Sentinel",
-//     rarityScore: "78.0",
-//     style: "MYTHICAL",
-//     live: false,
-//     image: "/Mythical-Creature-3.png",
-//   },
-//   {
-//     id: 4,
-//     name: "Solar Monk",
-//     rarityScore: "91.9",
-//     style: "EGL",
-//     live: true,
-//     image: "/Mythical-Creature-1.png",
-//   },
-// ];
+import { useWallet } from "@solana/wallet-adapter-react";
+import { useState } from "react";
 
 const tabs = ["MY VAULT", "LISTINGS", "HISTORY"];
 
 export default function VaultPage() {
   const [activeTab, setActiveTab] = useState("MY VAULT");
-  const { address, isConnected } = useAppKitAccount();
+  const { publicKey } = useWallet();
+  const address = publicKey?.toBase58();
   const { data: nfts, isLoading: loading , isError } = useAgentNFTs(address!);
 
   return (

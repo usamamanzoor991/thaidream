@@ -1,16 +1,14 @@
 "use client";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import WalletButton from "@/app/components/navbar/WalletButton";
 import { GoDotFill } from "react-icons/go";
 import { IoHomeOutline } from "react-icons/io5";
 import { FaHome } from "react-icons/fa";
 import { MdOutlineSpaceDashboard, MdSpaceDashboard } from "react-icons/md";
 import { RiRobot2Line, RiRobot2Fill } from "react-icons/ri";
 import { usePathname } from "next/navigation";
-import {
-  useAppKitAccount,
-} from "@reown/appkit/react";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+import { useWallet } from "@solana/wallet-adapter-react";
 
 const Navbar = () => {
   const [hovered, setHovered] = useState({
@@ -18,7 +16,8 @@ const Navbar = () => {
     dashboard: false,
     agent: false,
   });
-  const { isConnected } = useAppKitAccount();
+  const { connected } = useWallet();
+  const isConnected = connected;
   
   const [showNav, setShowNav] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -108,7 +107,8 @@ const Navbar = () => {
             <GoDotFill size={16} className="animate-pulse text-green-600" />
             <h1 className="text-sm text-primary font-semibold">Solana</h1>
           </div>
-          <WalletButton />
+          {/* <WalletButton /> */}
+          <WalletMultiButton style={{backgroundColor: "var(--primary)", color: "white" , borderRadius: "12px" , fontSize: "14px", padding: "0px 12px" }} />
         </div>
       </nav>
 
@@ -120,7 +120,8 @@ const Navbar = () => {
           <h1 className="font-bold text-base text-white">Thai Dream</h1>
         </div>
 
-        <WalletButton />
+        {/* <WalletButton /> */}
+        <WalletMultiButton />
       </div>
       </div>
       <div className="md:hidden fixed bottom-0 left-0 w-full z-50 bg-black/30 rounded-full backdrop-blur-2xl border-t border-gray-200 px-6 py-2 flex justify-between items-center">
