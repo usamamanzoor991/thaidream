@@ -65,6 +65,7 @@ if (!isOpen) return null;
           <Link
             href="/dashboard"
             className="w-full text-center bg-primary/70 text-white py-2 text-[15px] rounded-3xl font-semibold hover:bg-primary/90 transform hover:scale-105 duration-300 transition"
+            onClick={onClose}
           >
             Go to Dashboard
           </Link>
