@@ -1,13 +1,13 @@
 "use client";
 import { ThemeProvider } from "./ThemeProvider";
-import { AppKitProvider } from "./AppKitProvider";
+import WalletAdapterProvider from "./WalletAdapterProvider";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-      <AppKitProvider>
-        {children}
-      </AppKitProvider>
+        <WalletAdapterProvider>
+          {children}
+        </WalletAdapterProvider>
     </ThemeProvider>
   );
 }
