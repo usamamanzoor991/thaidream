@@ -38,7 +38,7 @@ const Navbar = () => {
   }, [lastScrollY]);
 
   return (
-    <div className="w-full fixed top-0 left-0 z-50">
+    <div className="w-full fixed top-0 left-0 z-10">
       {/* Desktop Navbar */}
       <nav
         className={`hidden md:flex justify-between items-center container mx-auto px-6 border border-white bg-black/30 rounded-b-4xl backdrop-blur-2xl dark:border-white/10 h-20 transition-transform duration-300 ${

@@ -6,16 +6,18 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useState,useRef,useEffect } from "react";
 import toast from "react-hot-toast";
-
+import { useModalStore } from "@/app/zustand/store";
 const agents = [
   {
     name: "Loy Krathong",
     AGENT_REGISTRATION_URI: "CAUMDFqJcZ9XwHesaJEju41LQNdTpkmQjvbQhcFi2ZAn",
-    assetUri: 'https://ipfs.io/ipfs/bafkreihaifotlzcbfcdg27wp2utivnmgotjtmigutrj2wk3kea2hbtt7ii',
+    assetUri:
+      "https://ipfs.io/ipfs/bafkreihaifotlzcbfcdg27wp2utivnmgotjtmigutrj2wk3kea2hbtt7ii",
     series: "SERIES 01 // MYTHOS",
     description:
       "Wish Keeper: Releases floating intentions and watches beautiful opportunities bloom.",
-    image: "https://ipfs.io/ipfs/bafybeigdswz6iyhyoqtds3ptdns2bj7oripufjikcsk4qzfkr6wfwbwyii/user%20d.png",
+    image:
+      "https://ipfs.io/ipfs/bafybeigdswz6iyhyoqtds3ptdns2bj7oripufjikcsk4qzfkr6wfwbwyii/user%20d.png",
     folkloreType: "River Spirit",
     rarityRank: "Epic (Top 5%)",
     auraLevel: "88 / 100",
@@ -23,19 +25,21 @@ const agents = [
     mintPrice: "2.8 SOL",
     gasEstimate: "GAS ESTIMATE: 0.000082 SOL",
     attributes: [
-      { "trait_type": "Agent Type", "value": "Standard" },
-      { "trait_type": "Role", "value": "Wish Keeper" },
-      { "trait_type": "Culture", "value": "Thai Folklore" }
+      { trait_type: "Agent Type", value: "Standard" },
+      { trait_type: "Role", value: "Wish Keeper" },
+      { trait_type: "Culture", value: "Thai Folklore" },
     ],
   },
   {
     name: "Hanuman",
     AGENT_REGISTRATION_URI: "3UDkNdMYFkekqfgwe786J7G2rYYUcmKK4GAmGUT2NkAH",
-    assetUri: 'https://ipfs.io/ipfs/bafkreibhy53vwmytujlccl7z2itdcjafi3qjekntjtuolq36jv4ti5o55a',
+    assetUri:
+      "https://ipfs.io/ipfs/bafkreibhy53vwmytujlccl7z2itdcjafi3qjekntjtuolq36jv4ti5o55a",
     series: "SERIES 01 // MYTHOS",
     description:
       "Prosperity Guardian: Powerful monkey who crushes obstacles and claims victory rewards for your swarm.",
-    image: "https://ipfs.io/ipfs/bafybeigdswz6iyhyoqtds3ptdns2bj7oripufjikcsk4qzfkr6wfwbwyii/user%20A.png",
+    image:
+      "https://ipfs.io/ipfs/bafybeigdswz6iyhyoqtds3ptdns2bj7oripufjikcsk4qzfkr6wfwbwyii/user%20A.png",
     folkloreType: "Divine Warrior",
     rarityRank: "Legendary (Top 1%)",
     auraLevel: "96 / 100",
@@ -43,19 +47,21 @@ const agents = [
     mintPrice: "5.2 SOL",
     gasEstimate: "GAS ESTIMATE: 0.00011 SOL",
     attributes: [
-      { "trait_type": "Agent Type", "value": "Premium" },
-      { "trait_type": "Role", "value": "Prosperity Guardian" },
-      { "trait_type": "Culture", "value": "Thai Folklore" }
+      { trait_type: "Agent Type", value: "Premium" },
+      { trait_type: "Role", value: "Prosperity Guardian" },
+      { trait_type: "Culture", value: "Thai Folklore" },
     ],
   },
   {
     name: "Naga",
     AGENT_REGISTRATION_URI: "7SZzsEAHCd29VZe3empJGoMYJc1RjisEbnn5SXJCTrY5",
-    assetUri: 'https://ipfs.io/ipfs/bafkreibmtjpyzgdrftvo6acvwxjnx6mgeu22kwhov5cimyn46plktebmim',
+    assetUri:
+      "https://ipfs.io/ipfs/bafkreibmtjpyzgdrftvo6acvwxjnx6mgeu22kwhov5cimyn46plktebmim",
     series: "SERIES 01 // MYTHOS",
     description:
       "Wealth Flow: Mythical serpent spirit that creates steady passive wealth circulation.",
-    image: "https://ipfs.io/ipfs/bafybeigdswz6iyhyoqtds3ptdns2bj7oripufjikcsk4qzfkr6wfwbwyii/user%20b.png",
+    image:
+      "https://ipfs.io/ipfs/bafybeigdswz6iyhyoqtds3ptdns2bj7oripufjikcsk4qzfkr6wfwbwyii/user%20b.png",
     folkloreType: "Serpent Deity",
     rarityRank: "Mythic (Top 2%)",
     auraLevel: "92 / 100",
@@ -63,19 +69,21 @@ const agents = [
     mintPrice: "4.7 SOL",
     gasEstimate: "GAS ESTIMATE: 0.000098 SOL",
     attributes: [
-      { "trait_type": "Agent Type", "value": "Premium" },
-      { "trait_type": "Role", "value": "Wealth Flow" },
-      { "trait_type": "Culture", "value": "Thai Folklore" }
+      { trait_type: "Agent Type", value: "Premium" },
+      { trait_type: "Role", value: "Wealth Flow" },
+      { trait_type: "Culture", value: "Thai Folklore" },
     ],
   },
   {
     name: "Yi Peng",
     AGENT_REGISTRATION_URI: "7bsPo94SLroqLtXTfTzU2mFtcnn2uWDZJgU1fwKvSrio",
-    assetUri: 'https://ipfs.io/ipfs/bafkreifa3o4zuyugyerw6zxmyir3kkxonub4mv6lhvi7lfsqkozfgtha24',
+    assetUri:
+      "https://ipfs.io/ipfs/bafkreifa3o4zuyugyerw6zxmyir3kkxonub4mv6lhvi7lfsqkozfgtha24",
     series: "SERIES 01 // MYTHOS",
     description:
       "Aspiration Lantern: Releases limitations and helps earnings rise with every launch.",
-    image: "https://ipfs.io/ipfs/bafybeigdswz6iyhyoqtds3ptdns2bj7oripufjikcsk4qzfkr6wfwbwyii/user%20e.png",
+    image:
+      "https://ipfs.io/ipfs/bafybeigdswz6iyhyoqtds3ptdns2bj7oripufjikcsk4qzfkr6wfwbwyii/user%20e.png",
     folkloreType: "Sky Spirit",
     rarityRank: "Epic (Top 5%)",
     auraLevel: "90 / 100",
@@ -83,19 +91,21 @@ const agents = [
     mintPrice: "3.6 SOL",
     gasEstimate: "GAS ESTIMATE: 0.000087 SOL",
     attributes: [
-      { "trait_type": "Agent Type", "value": "Standard" },
-      { "trait_type": "Role", "value": "Aspiration Lantern" },
-      { "trait_type": "Culture", "value": "Thai Folklore" }
+      { trait_type: "Agent Type", value: "Standard" },
+      { trait_type: "Role", value: "Aspiration Lantern" },
+      { trait_type: "Culture", value: "Thai Folklore" },
     ],
   },
   {
     name: "Nang Tani",
     AGENT_REGISTRATION_URI: "7A9az5bdyZSVUbwe8eaoHpsXMdZ3HaNdJPwZZTjYTzo8",
-    assetUri: 'https://ipfs.io/ipfs/bafkreicerqaedlcwk3vbc2ijtlgg5vwena3fo5g7iwxls34v423se52juq',
+    assetUri:
+      "https://ipfs.io/ipfs/bafkreicerqaedlcwk3vbc2ijtlgg5vwena3fo5g7iwxls34v423se52juq",
     series: "SERIES 01 // MYTHOS",
     description:
       "Growth Spirit: Gentle banana tree spirit that nurtures your holdings and generates steady yield.",
-    image: "https://ipfs.io/ipfs/bafybeigdswz6iyhyoqtds3ptdns2bj7oripufjikcsk4qzfkr6wfwbwyii/user%20c.png",
+    image:
+      "https://ipfs.io/ipfs/bafybeigdswz6iyhyoqtds3ptdns2bj7oripufjikcsk4qzfkr6wfwbwyii/user%20c.png",
     folkloreType: "Nature Spirit",
     rarityRank: "Rare (Top 10%)",
     auraLevel: "85 / 100",
@@ -103,19 +113,21 @@ const agents = [
     mintPrice: "2.2 SOL",
     gasEstimate: "GAS ESTIMATE: 0.000075 SOL",
     attributes: [
-      { "trait_type": "Agent Type", "value": "Premium" },
-      { "trait_type": "Role", "value": "Growth Spirit" },
-      { "trait_type": "Culture", "value": "Thai Folklore" }
+      { trait_type: "Agent Type", value: "Premium" },
+      { trait_type: "Role", value: "Growth Spirit" },
+      { trait_type: "Culture", value: "Thai Folklore" },
     ],
   },
   {
     name: "Phi Ta Khon",
     AGENT_REGISTRATION_URI: "HsCjjXr9km7ruKwBdnQRsrJH9JtKwcepUBCa7uiGZnTn",
-    assetUri: 'https://ipfs.io/ipfs/bafkreidlp2cfapxa3yknpfnsdl2secrypmd44lru7e5t6rtcqhidqyugcq',
+    assetUri:
+      "https://ipfs.io/ipfs/bafkreidlp2cfapxa3yknpfnsdl2secrypmd44lru7e5t6rtcqhidqyugcq",
     series: "SERIES 01 // MYTHOS",
     description:
       "Festival Catalyst: Joins events, unlocks swarm multipliers and community celebrations.",
-    image: "https://ipfs.io/ipfs/bafybeigdswz6iyhyoqtds3ptdns2bj7oripufjikcsk4qzfkr6wfwbwyii/user%20f.png",
+    image:
+      "https://ipfs.io/ipfs/bafybeigdswz6iyhyoqtds3ptdns2bj7oripufjikcsk4qzfkr6wfwbwyii/user%20f.png",
     folkloreType: "Festival Spirit",
     rarityRank: "Epic (Top 5%)",
     auraLevel: "89 / 100",
@@ -123,15 +135,16 @@ const agents = [
     mintPrice: "3.1 SOL",
     gasEstimate: "GAS ESTIMATE: 0.000084 SOL",
     attributes: [
-      { "trait_type": "Agent Type", "value": "Standard" },
-      { "trait_type": "Role", "value": "Festival Catalyst" },
-      { "trait_type": "Culture", "value": "Thai Folklore" }
+      { trait_type: "Agent Type", value: "Standard" },
+      { trait_type: "Role", value: "Festival Catalyst" },
+      { trait_type: "Culture", value: "Thai Folklore" },
     ],
   },
 ];
 
 export default function MintingPage() {
-  const [confirmed, setConfirmed] = useState(false);
+  // const [confirmed, setConfirmed] = useState(false);
+  const { openModal } = useModalStore();
   const searchParams = useSearchParams();
   const agentName = searchParams.get("agent");
   const { publicKey , connected } = useWallet();
@@ -143,49 +156,56 @@ export default function MintingPage() {
   const agent = agents.find((agent) => agent?.name === agentName);
 
   const mutation = useMutation({
-    mutationFn: async() => {
-      if(!isConnected){
-        toast.error('Please connect your wallet');
-        throw Error('Please connect your wallet');
+    mutationFn: async () => {
+      if (!isConnected) {
+        toast.error("Please connect your wallet");
+        throw Error("Please connect your wallet");
       }
       setProgress(0);
-      setConfirmed(false);
-      intervalRef.current = setInterval(()=>{
-        setProgress((prev)=>{
-          if(prev>=90){
+      intervalRef.current = setInterval(() => {
+        setProgress((prev) => {
+          if (prev >= 90) {
             return prev;
-          }else{
-            return prev+10;
+          } else {
+            return prev + 10;
           }
         });
-      },300);
-      const res = await fetch('/api/mint', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ address , AGENT_REGISTRATION_URI:agent?.AGENT_REGISTRATION_URI , assetUri:agent?.assetUri , name:agent?.name }),
+      }, 300);
+      const res = await fetch("/api/mint", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          address,
+          AGENT_REGISTRATION_URI: agent?.AGENT_REGISTRATION_URI,
+          assetUri: agent?.assetUri,
+          name: agent?.name,
+        }),
       });
 
       if (!res.ok) {
-        toast.error('Mint failed');
+        toast.error("Mint failed");
         setProgress(0);
         clearInterval(intervalRef?.current!);
-        throw new Error('Mint failed');
+        throw new Error("Mint failed");
       }
 
       const data = await res.json();
       setProgress(100);
-      setConfirmed(true);
+      openModal({
+        transactionId: "test",
+        explorerUrl: data.explorerUrl,
+      });
       return data;
     },
-  })
+  });
 
-  useEffect(()=>{
-    if(progress === 100){
+  useEffect(() => {
+    if (progress === 100) {
       clearInterval(intervalRef?.current!);
     }
-  },[progress]);
+  }, [progress]);
 
-  if(!agent) {
+  if (!agent) {
     return (
       <div className="w-full flex flex-col items-center justify-center min-h-screen">
         <div className="container flex flex-col items-center justify-center px-6">
@@ -196,22 +216,23 @@ export default function MintingPage() {
             Please select an agent to mint.
           </p>
           <button className="mt-4 px-4 py-2 text-foreground rounded-lg cursor-pointer">
-            <Link href="/agent" className="italic hover:underline transition-all duration-1000">
+            <Link
+              href="/agent"
+              className="italic hover:underline transition-all duration-1000"
+            >
               Go to Agents
             </Link>
           </button>
         </div>
       </div>
-    )
+    );
   }
 
   return (
     <div className="pt-22 w-full flex flex-col items-center justify-center min-h-screen">
       <div className="container flex flex-col px-6">
-
         {/* ── Two-column layout ── */}
         <section className="w-full pb-12 grid md:grid-cols-2 grid-cols-1 gap-10 items-start">
-
           {/* ── LEFT: Agent Image Card ── */}
           <div className="relative w-full flex flex-col">
             <div className="relative rounded-2xl overflow-hidden border border-foreground/10 bg-foreground/5">
@@ -248,7 +269,6 @@ export default function MintingPage() {
 
           {/* ── RIGHT: Agent Details ── */}
           <div className="flex flex-col gap-6">
-
             {/* Name & Description */}
             <div>
               <h1 className="text-5xl mt-2 md:mt-8 font-bold text-foreground tracking-tight leading-tight mb-3">
@@ -262,11 +282,16 @@ export default function MintingPage() {
             {/* Stats Grid */}
             <div className="grid grid-cols-2 gap-px bg-foreground/10 rounded-xl overflow-hidden border border-foreground/10">
               {agent?.attributes?.map(({ trait_type, value }) => (
-                <div key={trait_type} className="bg-background p-4 flex flex-col gap-1">
+                <div
+                  key={trait_type}
+                  className="bg-background p-4 flex flex-col gap-1"
+                >
                   <span className="text-[10px] tracking-[0.18em] text-primary uppercase">
                     {trait_type}
                   </span>
-                  <span className={`text-sm font-semibold text-foreground`}>{value}</span>
+                  <span className={`text-sm font-semibold text-foreground`}>
+                    {value}
+                  </span>
                 </div>
               ))}
             </div>
@@ -277,7 +302,9 @@ export default function MintingPage() {
                 <span className="text-[9px] tracking-[0.2em] text-primary uppercase font-bold">
                   Summoning in Progress...
                 </span>
-                <span className="text-[12px] text-foreground/30">{progress}% Complete</span>
+                <span className="text-[12px] text-foreground/30">
+                  {progress}% Complete
+                </span>
               </div>
 
               {/* Progress bar */}
@@ -331,7 +358,7 @@ export default function MintingPage() {
                   mutation.mutate();
                 }}
                 disabled={mutation.isPending}
-                className={`w-full py-4 rounded-full bg-primary text-neutral font-bold text-sm tracking-widest ${mutation.isPending ? 'opacity-50 cursor-not-allowed' : 'hover:opacity-90 active:scale-95 transition-all cursor-pointer'}`}
+                className={`w-full py-4 rounded-full bg-primary text-neutral font-bold text-sm tracking-widest ${mutation.isPending ? "opacity-50 cursor-not-allowed" : "hover:opacity-90 active:scale-95 transition-all cursor-pointer"}`}
               >
                 {mutation.isPending ? `MINTING...` : `CONFIRM MINT`}
               </button>
@@ -341,7 +368,7 @@ export default function MintingPage() {
             </div>
 
             {/* Mint Successful Toast */}
-            {confirmed && (
+            {/* {confirmed && (
               <div className="flex items-center justify-between bg-foreground/5 border border-foreground/10 rounded-xl px-4 py-3">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-full bg-tertiary/10 border border-tertiary/30 flex items-center justify-center text-tertiary text-xs">
@@ -360,11 +387,9 @@ export default function MintingPage() {
                   VIEW IN EXPLORER
                 </button>
               </div>
-            )}
-
+            )} */}
           </div>
         </section>
-
       </div>
     </div>
   );
